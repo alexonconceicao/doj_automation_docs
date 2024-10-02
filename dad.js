@@ -122,7 +122,7 @@ async function main() {
     const nomeFuncionario = await askName();
     const cargoFuncionario = await askCargo();
 
-    console.log('\nGerando documento...');
+    console.log('\nGerando documento (1/3)');
 
     const funcionarioCapitalizado = await generateDocument(
       dadosInput,
@@ -130,15 +130,18 @@ async function main() {
       cargoFuncionario
     );
 
-    console.log('\nDocumento gerado...');
+    console.log('\nDocumento gerado (2/3)');
 
     const funcionarioDir = await createFuncionarioDirectory(
       funcionarioCapitalizado
     );
 
-    console.log('\nGerando PDF...');
+    console.log('\nGerando PDF (3/3)');
 
-    const pdfPath = path.join(funcionarioDir, `Contrato - ${funcionarioCapitalizado}.pdf`);
+    const pdfPath = path.join(
+      funcionarioDir,
+      `Contrato - ${funcionarioCapitalizado}.pdf`
+    );
 
     await convertDocxToPdf(path.join(__dirname, './docs/output.docx'), pdfPath);
     console.log(`\nArquivo PDF gerado: ${pdfPath}`);
