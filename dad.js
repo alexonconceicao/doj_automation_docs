@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const readline = require('readline');
+require('dotenv').config();
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -99,7 +100,7 @@ async function generateDocument(dadosInput, nomeFuncionario, cargoFuncionario) {
 
 async function createFuncionarioDirectory(funcionarioCapitalizado) {
   const funcionarioDir = path.join(
-    'F:\\Arquivos\\Pessoal\\GTA RP Arquivos\\Code RP\\doj\\empresas\\Los Santos Customs (Autoshop)\\Funcionarios',
+    process.env.PATH_TO_SAVE,
     funcionarioCapitalizado
   );
 
@@ -142,7 +143,9 @@ async function main() {
     await convertDocxToPdf(path.join(__dirname, './docs/output.docx'), pdfPath);
     console.log(`\nArquivo PDF gerado: ${pdfPath}`);
 
-    console.log('\n================================> Programa Finalizado <================================');
+    console.log(
+      '\n================================> Programa Finalizado <================================'
+    );
 
     const continuar = await askToContinue();
     if (!continuar) {
