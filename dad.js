@@ -138,7 +138,7 @@ async function main() {
 
     console.log('\nGerando PDF...');
 
-    const pdfPath = path.join(funcionarioDir, `${funcionarioCapitalizado}.pdf`);
+    const pdfPath = path.join(funcionarioDir, `Contrato - ${funcionarioCapitalizado}.pdf`);
 
     await convertDocxToPdf(path.join(__dirname, './docs/output.docx'), pdfPath);
     console.log(`\nArquivo PDF gerado: ${pdfPath}`);
