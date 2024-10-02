@@ -67,7 +67,7 @@ function capitalizeName(name) {
 
 async function generateDocument(dadosInput, nomeFuncionario, cargoFuncionario) {
   const content = fs.readFileSync(
-    path.resolve(__dirname, './docs/input.docx'),
+    path.resolve(__dirname, `./docs/${process.env.ARQUIVO}`),
     'binary'
   );
 
