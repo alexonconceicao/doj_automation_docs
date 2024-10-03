@@ -2,3 +2,5 @@
 docs/*.docx
 docs/*.pdf
 .env
+company_db.js
+*.test.*
