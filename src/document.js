@@ -3,42 +3,36 @@ const Docxtemplater = require('docxtemplater');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
-const number = require('numero-por-extenso');
 
-function createFuncionarioDirectory(funcionarioCapitalizado) {
-  const funcionarioDir = path.join(funcionarioCapitalizado);
+function createFuncionarioDirectory(caminhoFuncionario) {
+  const funcionarioDir = path.join(caminhoFuncionario);
   fs.mkdirSync(funcionarioDir, { recursive: true });
   return funcionarioDir;
 }
 
 function generateDocument(
   dataEmployee,
+  nomeFuncCapitalizado,
   roleEmployee,
-  indexCompany,
-  salaryRole,
-  funcionarioCapitalizado,
+  salaryTxt,
   docPath
 ) {
+  const role = roleEmployee.title;
   const content = fs.readFileSync(
-    path.resolve(__dirname, `./docs/${process.env.ARQUIVO}`),
+    path.resolve(__dirname, `../docs/${roleEmployee.doc}`),
     'binary'
   );
-
-  const salarioExtenso = number.porExtenso(salaryRole);
-  const salarioTexto = `${formatCurrency(
-    salaryRole
-  )} (${salarioExtenso} dólares)`;
 
   const zip = new PizZip(content);
   const doc = new Docxtemplater(zip, { paragraphLoop: true, linebreaks: true });
 
   doc.render({
     dados_contratado: dataEmployee.trim(),
-    Funcionario: funcionarioCapitalizado,
-    FUNCIONARIO1: funcionarioCapitalizado.toUpperCase(),
-    cargo: roleEmployee,
-    CARGO1: roleEmployee.toUpperCase(),
-    salario_base: salarioTexto,
+    Funcionario: nomeFuncCapitalizado,
+    FUNCIONARIO1: nomeFuncCapitalizado.toUpperCase(),
+    cargo: role.toLowerCase(),
+    CARGO1: role.toUpperCase(),
+    salario_base: salaryTxt,
   });
 
   const buf = doc
@@ -49,7 +43,7 @@ function generateDocument(
 
 function convertDocxToPdf(docxPath, pdfPath) {
   return new Promise((resolve, reject) => {
-    exec(`docx2pdf ${docxPath} "${pdfPath}"`, (error) => {
+    exec(`docx2pdf "${docxPath}" "${pdfPath}"`, (error) => {
       if (error) {
         console.error(`Erro ao converter para PDF: ${error.message}`);
         return reject(error);

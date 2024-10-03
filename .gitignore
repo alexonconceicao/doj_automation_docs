@@ -1,5 +1,7 @@
 /node_modules/
 docs/*.docx
+docs/~$*.docx
+docs/output.docx
 docs/*.pdf
 .env
 company_db.js

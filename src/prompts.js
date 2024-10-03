@@ -1,10 +1,20 @@
 const readline = require('readline');
 const company = require('../data/company_db');
+const number = require('numero-por-extenso');
+const { capitalizeName, formatCurrency } = require('./document');
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
+function formatSalary(salary) {
+  const salarioExtenso = number.porExtenso(salary);
+  const salarioFormatado = formatCurrency(salary);
+  const salarioTexto = `${salarioFormatado} (${salarioExtenso} dólares)`;
+
+  return salarioTexto;
+}
 
 function getMultilineInput() {
   const lines = [];
@@ -37,8 +47,8 @@ function selectCompany() {
 
 function selectRole(roles) {
   const textRoles = Object.values(roles)
-    .map((item) => item.description)
-    .map((role, index) => `${index + 1} - ${role}`)
+    .map((item) => item.title)
+    .map((role, index) => `${index + 1} - ${capitalizeName(role)}`)
     .join('\n');
 
   const text = `\n\nSelecione o CARGO do funcionário:\n\n${textRoles}\n\n>>> `;
@@ -49,15 +59,27 @@ function selectRole(roles) {
 
 function askSalarioBase(role) {
   const defaultSalary = role.salary;
-
+  const formatedDefaultSalary = formatSalary(defaultSalary);
   console.log(
-    `\n\nO salário padrão registrado para este cargo é: ${defaultSalary}`
+    `\n\nO salário padrão registrado para este cargo é: ${formatedDefaultSalary}`
   );
 
   return new Promise((resolve) => {
     rl.question(
-      '\n\nInsira o SALARIO BASE do funcionário (apenas números): ',
-      resolve
+      '\n\nPara manter o salário padrão digite (s/y/sim/yes).\nCaso deseje um novo salário digite o valor: ',
+      (answer) => {
+        if (['s', 'sim', 'y', 'yes'].includes(answer.toLowerCase())) {
+          resolve(formatedDefaultSalary);
+        } else {
+          const newSalary = parseInt(answer);
+          if (!isNaN(newSalary) && newSalary > 0) {
+            const formatedNewSalary = formatSalary(newSalary);
+            resolve(formatedNewSalary);
+          } else {
+            resolve(null);
+          }
+        }
+      }
     );
   });
 }

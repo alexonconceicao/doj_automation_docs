@@ -1,0 +1,94 @@
+require('dotenv').config();
+
+const path_companies = process.env.PATH_COMPANIES;
+
+const company = {
+  examplemotors: {
+    name: 'Example Motors',
+    contact: 'John Smith',
+    email: 'john.smith@example.com',
+    phone: '(123) 456-7890',
+    ctrs_employees_path: `${path_companies}\\Example Motors\\Funcionarios`,
+    roles: {
+      start: {
+        title: 'vendedor(a) trainee',
+        salary: 1000,
+        doc: 'default_example_trainee.docx',
+      },
+    },
+  },
+  examplecustoms: {
+    name: 'Example Customs',
+    contact: 'Jane Doe',
+    email: 'jane.doe@example.com',
+    phone: '(321) 654-9870',
+    ctrs_employees_path: `${path_companies}\\Example Customs\\Funcionarios`,
+    roles: {
+      start: {
+        title: 'vendedor(a) trainee',
+        salary: 1000,
+        doc: 'default_example_trainee.docx',
+      },
+    },
+  },
+  digitalhub: {
+    name: 'Digital Hub',
+    contact: 'Alice Johnson',
+    email: 'alice.johnson@digitalhub.com',
+    phone: '(555) 123-4567',
+    ctrs_employees_path: `${path_companies}\\Digital Hub\\Funcionarios`,
+    roles: {
+      start: {
+        title: 'vendedor(a) trainee',
+        salary: 1000,
+        doc: 'default_example_trainee.docx',
+      },
+    },
+  },
+  centralhospital: {
+    name: 'Central Hospital',
+    contact: 'Dr. Emily Brown',
+    email: 'emily.brown@centralhospital.com',
+    phone: '--',
+    ctrs_employees_path: `${path_companies}\\Central Hospital\\Funcionarios`,
+    roles: {
+      start: {
+        title: 'trainee',
+        salary: 1000,
+        doc: 'default_central_trainee_resident.docx',
+      },
+      start_middle: {
+        title: 'residente',
+        salary: 1500,
+        doc: 'default_central_resident.docx',
+      },
+      middle_start: {
+        title: 'médico(a)',
+        salary: 2000,
+        doc: 'default_central_doctor.docx',
+      },
+      middle_middle: {
+        title: 'médico(a) chefe',
+        salary: 2500,
+        doc: 'default_central_head_doctor.docx',
+      },
+      middle_top: {
+        title: 'Coordenador(a)',
+        salary: 3000,
+        doc: 'default_central_coordinator.docx',
+      },
+      middle_top_1: {
+        title: 'vice diretor(a)',
+        salary: 3500,
+        doc: 'default_central_vice_director.docx',
+      },
+      middle_top_2: {
+        title: 'diretor(a)',
+        salary: 4000,
+        doc: 'default_central_director.docx',
+      },
+    },
+  },
+};
+
+module.exports = company;

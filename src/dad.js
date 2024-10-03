@@ -19,6 +19,7 @@ const company = require('../data/company_db');
 async function main() {
   while (true) {
     const companies = Object.values(company);
+    let info;
     let selectedCompany;
 
     while (true) {
@@ -37,7 +38,9 @@ async function main() {
           await confirmContinue();
           continue;
         }
-        break; // sair do loop se não houver erro
+
+        info = `Empresa: ${selectedCompany.name}`;
+        break;
       } catch (err) {
         console.error(
           'Ocorreu um erro ao tentar capturar a empresa:',
@@ -47,12 +50,12 @@ async function main() {
       }
     }
 
-    let dataEmployee, nomeFuncionario, funcionarioCapitalizado;
+    let dataEmployee, nomeFuncCapitalizado;
 
     while (true) {
       try {
         limparTela();
-        console.log(`Empresa: ${selectedCompany.name}`);
+        console.log(info);
         dataEmployee = await getMultilineInput();
         if (!dataEmployee) {
           console.error(
@@ -69,9 +72,11 @@ async function main() {
           continue;
         }
 
-        nomeFuncionario = linhaNomeFuncionario[1];
-        funcionarioCapitalizado = capitalizeName(nomeFuncionario);
-        break; // sair do loop se não houver erro
+        const nomeFuncionario = linhaNomeFuncionario[1];
+        nomeFuncCapitalizado = capitalizeName(nomeFuncionario);
+
+        info += `\nFuncionário: ${nomeFuncCapitalizado}`;
+        break;
       } catch (err) {
         console.error(
           'Ocorreu um erro ao tentar capturar os dados do funcionário:',
@@ -86,7 +91,7 @@ async function main() {
     while (true) {
       try {
         limparTela();
-        console.log(`Empresa: ${selectedCompany.name}`);
+        console.log(info);
         const indexRole = await selectRole(selectedCompany.roles);
 
         if (isNaN(indexRole)) {
@@ -103,7 +108,9 @@ async function main() {
           await confirmContinue();
           continue;
         }
-        break; // sair do loop se não houver erro
+
+        info += `\nCargo: ${capitalizeName(roleEmployee.title)}`;
+        break;
       } catch (err) {
         console.error(
           'Ocorreu um erro ao tentar capturar o cargo do funcionário:',
@@ -113,20 +120,21 @@ async function main() {
       }
     }
 
-    let salaryRole;
+    let salaryTxt;
 
     while (true) {
       try {
         limparTela();
-        console.log(`Empresa: ${selectedCompany.name}`);
-        console.log(`Cargo: ${roleEmployee.description}`);
-        salaryRole = await askSalarioBase(roleEmployee);
-        if (isNaN(salaryRole) || salaryRole <= 0) {
+        console.log(info);
+
+        salaryTxt = await askSalarioBase(roleEmployee);
+
+        if (salaryTxt === null) {
           console.error('\nERRO: Salário inválido ou inexistente.');
           await confirmContinue();
           continue;
         }
-        break; // sair do loop se não houver erro
+        break;
       } catch (err) {
         console.error(
           'Ocorreu um erro ao tentar capturar o salário do funcionário:',
@@ -138,25 +146,26 @@ async function main() {
 
     try {
       limparTela();
-      console.log(`Empresa: ${selectedCompany.name}`);
-      console.log('\nGerando documento (1/2)');
-      const funcionarioDir = createFuncionarioDirectory(
-        funcionarioCapitalizado
-      );
-      const nameFile = `Contrato - ${funcionarioCapitalizado}`;
-      const docPath = `${funcionarioDir}/${nameFile}.docx`;
+      console.log(info);
+
+      console.log('\n(1/2) Gerando documento...');
+      const funcionarioPath = `${selectedCompany.ctrs_employees_path}\\${nomeFuncCapitalizado}`;
+      const funcionarioDir = createFuncionarioDirectory(funcionarioPath);
+      const nameFile = `Contrato - ${nomeFuncCapitalizado}`;
+      const totalPath = `${funcionarioDir}\\${nameFile}`;
+      const docPath = `${totalPath}.docx`;
 
       generateDocument(
         dataEmployee,
+        nomeFuncCapitalizado,
         roleEmployee,
-        selectedCompany,
-        salaryRole,
-        funcionarioCapitalizado,
+        salaryTxt,
         docPath
       );
 
-      console.log('\nGerando PDF (2/2)');
-      const pdfPath = `${funcionarioDir}/${nameFile}.pdf`;
+      console.log('\n(2/2) Gerando PDF...');
+      const pdfPath = `${totalPath}.pdf`;
+
       await convertDocxToPdf(docPath, pdfPath);
       console.log(`\nArquivo PDF gerado: ${pdfPath}`);
     } catch (err) {
