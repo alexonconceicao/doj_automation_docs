@@ -6,7 +6,7 @@
  Chief Justice: em breve...
  Judge: em breve...
  District Attorney: em breve...
- Lawyer: 1.0
+ Lawyer: 1.0 (Versão Terminal)
 ```
 
 ---
@@ -35,4 +35,20 @@ Telefone: telefone
 E-mail: info_email
 ```
 
-2. Selecionar e preencher as informações que aparecem na tela
+2. Executar os comandos:
+
+```
+npm install && npm start
+```
+
+3. Selecionar e preencher as informações que aparecem na tela
+
+### Configuração do documento
+
+As informações para serem substituídas no documento devem estar entre chaves -> {}
+
+Exemplo:
+
+```
+[...] {salario_base} e bla bla bla bla [...]
+```
