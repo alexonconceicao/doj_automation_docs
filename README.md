@@ -53,6 +53,6 @@ Exemplo:
 
 ### Vídeo demonstração
 
-Vídeo tutorial no YouTube: ["DAD - DOJ Automation Docs 2.0? 😅"](http://www.youtube.com/watch?v=JrAXS20BIkY){:target="\_blank"}
+Vídeo tutorial no YouTube: ["DAD - DOJ Automation Docs 2.0? 😅"](http://www.youtube.com/watch?v=JrAXS20BIkY)
 
-[![IMAGEM_DAD_VIDEO](http://img.youtube.com/vi/JrAXS20BIkY/0.jpg)](http://www.youtube.com/watch?v=JrAXS20BIkY 'DAD - DOJ Automation Docs 2.0? 😅'){:target="\_blank"}
+[![IMAGEM_DAD_VIDEO](http://img.youtube.com/vi/JrAXS20BIkY/0.jpg)](http://www.youtube.com/watch?v=JrAXS20BIkY 'DAD - DOJ Automation Docs 2.0? 😅')
