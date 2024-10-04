@@ -9,8 +9,6 @@
  Lawyer: 1.0 (Versão Terminal)
 ```
 
----
-
 ## Lawyer:info
 
 ### Configuração:
@@ -52,3 +50,9 @@ Exemplo:
 ```
 [...] {salario_base} e bla bla bla bla [...]
 ```
+
+### Vídeo demonstração
+
+Vídeo tutorial no YouTube: ["DAD - DOJ Automation Docs 2.0? 😅"](http://www.youtube.com/watch?v=JrAXS20BIkY)
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/JrAXS20BIkY/0.jpg)](http://www.youtube.com/watch?v=JrAXS20BIkY 'DAD - DOJ Automation Docs 2.0? 😅')
